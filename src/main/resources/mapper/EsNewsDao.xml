@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.news.app.dao.EsNewsDao">
+    <resultMap id="esNewsListMap" type="com.news.app.nosql.elasticsearch.document.EsNews" autoMapping="true">
+        <id column="news_id" jdbcType="VARCHAR" property="id" />
+    </resultMap>
+    <select id="getAllEsNewsList" resultMap="esNewsListMap">
+    select
+        n.news_id id,
+        n.news_title title,
+        n.news_userdm userdm,
+        n.news_pub_date pub_date,
+        n.news_details details,
+        n.news_read nread,
+        n.news_update_date update_date,
+        im.img_id pic_id,
+        im.img_name pic_name,
+        im.img_display_name disp_name
+    FROM News n
+    left join Image im on n.news_id = im.img_newsdm
+
+    <if test="id!=null">
+        and n.news_id=#{id}
+    </if>
+    </select>
+</mapper>

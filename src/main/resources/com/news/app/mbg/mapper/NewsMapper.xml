@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.news.app.mbg.mapper.NewsMapper">
+  <resultMap id="BaseResultMap" type="com.news.app.mbg.model.News">
+    <id column="news_id" jdbcType="INTEGER" property="newsId" />
+    <result column="news_title" jdbcType="VARCHAR" property="newsTitle" />
+    <result column="news_userdm" jdbcType="VARCHAR" property="newsUserdm" />
+    <result column="news_pub_date" jdbcType="TIMESTAMP" property="newsPubDate" />
+    <result column="news_read" jdbcType="INTEGER" property="newsRead" />
+    <result column="news_update_date" jdbcType="TIMESTAMP" property="newsUpdateDate" />
+    <result column="news_columndm" jdbcType="INTEGER" property="newsColumndm" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.news.app.mbg.model.News">
+    <result column="news_details" jdbcType="LONGVARCHAR" property="newsDetails" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    news_id, news_title, news_userdm, news_pub_date, news_read, news_update_date, news_columndm
+  </sql>
+  <sql id="Blob_Column_List">
+    news_details
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.news.app.mbg.model.NewsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from News
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.news.app.mbg.model.NewsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from News
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from News
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from News
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.news.app.mbg.model.NewsExample">
+    delete from News
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.news.app.mbg.model.News">
+    <selectKey keyProperty="newsId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into News (news_title, news_userdm, news_pub_date, 
+      news_read, news_update_date, news_columndm, 
+      news_details)
+    values (#{newsTitle,jdbcType=VARCHAR}, #{newsUserdm,jdbcType=VARCHAR}, #{newsPubDate,jdbcType=TIMESTAMP}, 
+      #{newsRead,jdbcType=INTEGER}, #{newsUpdateDate,jdbcType=TIMESTAMP}, #{newsColumndm,jdbcType=INTEGER}, 
+      #{newsDetails,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.news.app.mbg.model.News">
+    <selectKey keyProperty="newsId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into News
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="newsTitle != null">
+        news_title,
+      </if>
+      <if test="newsUserdm != null">
+        news_userdm,
+      </if>
+      <if test="newsPubDate != null">
+        news_pub_date,
+      </if>
+      <if test="newsRead != null">
+        news_read,
+      </if>
+      <if test="newsUpdateDate != null">
+        news_update_date,
+      </if>
+      <if test="newsColumndm != null">
+        news_columndm,
+      </if>
+      <if test="newsDetails != null">
+        news_details,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="newsTitle != null">
+        #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsUserdm != null">
+        #{newsUserdm,jdbcType=VARCHAR},
+      </if>
+      <if test="newsPubDate != null">
+        #{newsPubDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsRead != null">
+        #{newsRead,jdbcType=INTEGER},
+      </if>
+      <if test="newsUpdateDate != null">
+        #{newsUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsColumndm != null">
+        #{newsColumndm,jdbcType=INTEGER},
+      </if>
+      <if test="newsDetails != null">
+        #{newsDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.news.app.mbg.model.NewsExample" resultType="java.lang.Integer">
+    select count(*) from News
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update News
+    <set>
+      <if test="record.newsId != null">
+        news_id = #{record.newsId,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsTitle != null">
+        news_title = #{record.newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsUserdm != null">
+        news_userdm = #{record.newsUserdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.newsPubDate != null">
+        news_pub_date = #{record.newsPubDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.newsRead != null">
+        news_read = #{record.newsRead,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsUpdateDate != null">
+        news_update_date = #{record.newsUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.newsColumndm != null">
+        news_columndm = #{record.newsColumndm,jdbcType=INTEGER},
+      </if>
+      <if test="record.newsDetails != null">
+        news_details = #{record.newsDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update News
+    set news_id = #{record.newsId,jdbcType=INTEGER},
+      news_title = #{record.newsTitle,jdbcType=VARCHAR},
+      news_userdm = #{record.newsUserdm,jdbcType=VARCHAR},
+      news_pub_date = #{record.newsPubDate,jdbcType=TIMESTAMP},
+      news_read = #{record.newsRead,jdbcType=INTEGER},
+      news_update_date = #{record.newsUpdateDate,jdbcType=TIMESTAMP},
+      news_columndm = #{record.newsColumndm,jdbcType=INTEGER},
+      news_details = #{record.newsDetails,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update News
+    set news_id = #{record.newsId,jdbcType=INTEGER},
+      news_title = #{record.newsTitle,jdbcType=VARCHAR},
+      news_userdm = #{record.newsUserdm,jdbcType=VARCHAR},
+      news_pub_date = #{record.newsPubDate,jdbcType=TIMESTAMP},
+      news_read = #{record.newsRead,jdbcType=INTEGER},
+      news_update_date = #{record.newsUpdateDate,jdbcType=TIMESTAMP},
+      news_columndm = #{record.newsColumndm,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.news.app.mbg.model.News">
+    update News
+    <set>
+      <if test="newsTitle != null">
+        news_title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsUserdm != null">
+        news_userdm = #{newsUserdm,jdbcType=VARCHAR},
+      </if>
+      <if test="newsPubDate != null">
+        news_pub_date = #{newsPubDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsRead != null">
+        news_read = #{newsRead,jdbcType=INTEGER},
+      </if>
+      <if test="newsUpdateDate != null">
+        news_update_date = #{newsUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="newsColumndm != null">
+        news_columndm = #{newsColumndm,jdbcType=INTEGER},
+      </if>
+      <if test="newsDetails != null">
+        news_details = #{newsDetails,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.news.app.mbg.model.News">
+    update News
+    set news_title = #{newsTitle,jdbcType=VARCHAR},
+      news_userdm = #{newsUserdm,jdbcType=VARCHAR},
+      news_pub_date = #{newsPubDate,jdbcType=TIMESTAMP},
+      news_read = #{newsRead,jdbcType=INTEGER},
+      news_update_date = #{newsUpdateDate,jdbcType=TIMESTAMP},
+      news_columndm = #{newsColumndm,jdbcType=INTEGER},
+      news_details = #{newsDetails,jdbcType=LONGVARCHAR}
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.news.app.mbg.model.News">
+    update News
+    set news_title = #{newsTitle,jdbcType=VARCHAR},
+      news_userdm = #{newsUserdm,jdbcType=VARCHAR},
+      news_pub_date = #{newsPubDate,jdbcType=TIMESTAMP},
+      news_read = #{newsRead,jdbcType=INTEGER},
+      news_update_date = #{newsUpdateDate,jdbcType=TIMESTAMP},
+      news_columndm = #{newsColumndm,jdbcType=INTEGER}
+    where news_id = #{newsId,jdbcType=INTEGER}
+  </update>
+</mapper>

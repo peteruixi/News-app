@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.news.app.mbg.mapper.ColumnMapper">
+  <resultMap id="BaseResultMap" type="com.news.app.mbg.model.Column">
+    <id column="column_id" jdbcType="INTEGER" property="columnId" />
+    <result column="column_name" jdbcType="VARCHAR" property="columnName" />
+    <result column="column_fid" jdbcType="INTEGER" property="columnFid" />
+    <result column="column_desc" jdbcType="VARCHAR" property="columnDesc" />
+    <result column="column_update_date" jdbcType="TIMESTAMP" property="columnUpdateDate" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    column_id, column_name, column_fid, column_desc, column_update_date
+  </sql>
+  <select id="selectByExample" parameterType="com.news.app.mbg.model.ColumnExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Column
+    where column_id = #{columnId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Column
+    where column_id = #{columnId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.news.app.mbg.model.ColumnExample">
+    delete from Column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.news.app.mbg.model.Column">
+    <selectKey keyProperty="columnId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Column (column_name, column_fid, column_desc, 
+      column_update_date)
+    values (#{columnName,jdbcType=VARCHAR}, #{columnFid,jdbcType=INTEGER}, #{columnDesc,jdbcType=VARCHAR}, 
+      #{columnUpdateDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.news.app.mbg.model.Column">
+    <selectKey keyProperty="columnId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Column
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="columnName != null">
+        column_name,
+      </if>
+      <if test="columnFid != null">
+        column_fid,
+      </if>
+      <if test="columnDesc != null">
+        column_desc,
+      </if>
+      <if test="columnUpdateDate != null">
+        column_update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="columnName != null">
+        #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnFid != null">
+        #{columnFid,jdbcType=INTEGER},
+      </if>
+      <if test="columnDesc != null">
+        #{columnDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="columnUpdateDate != null">
+        #{columnUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.news.app.mbg.model.ColumnExample" resultType="java.lang.Integer">
+    select count(*) from Column
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Column
+    <set>
+      <if test="record.columnId != null">
+        column_id = #{record.columnId,jdbcType=INTEGER},
+      </if>
+      <if test="record.columnName != null">
+        column_name = #{record.columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.columnFid != null">
+        column_fid = #{record.columnFid,jdbcType=INTEGER},
+      </if>
+      <if test="record.columnDesc != null">
+        column_desc = #{record.columnDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.columnUpdateDate != null">
+        column_update_date = #{record.columnUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Column
+    set column_id = #{record.columnId,jdbcType=INTEGER},
+      column_name = #{record.columnName,jdbcType=VARCHAR},
+      column_fid = #{record.columnFid,jdbcType=INTEGER},
+      column_desc = #{record.columnDesc,jdbcType=VARCHAR},
+      column_update_date = #{record.columnUpdateDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.news.app.mbg.model.Column">
+    update Column
+    <set>
+      <if test="columnName != null">
+        column_name = #{columnName,jdbcType=VARCHAR},
+      </if>
+      <if test="columnFid != null">
+        column_fid = #{columnFid,jdbcType=INTEGER},
+      </if>
+      <if test="columnDesc != null">
+        column_desc = #{columnDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="columnUpdateDate != null">
+        column_update_date = #{columnUpdateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where column_id = #{columnId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.news.app.mbg.model.Column">
+    update Column
+    set column_name = #{columnName,jdbcType=VARCHAR},
+      column_fid = #{columnFid,jdbcType=INTEGER},
+      column_desc = #{columnDesc,jdbcType=VARCHAR},
+      column_update_date = #{columnUpdateDate,jdbcType=TIMESTAMP}
+    where column_id = #{columnId,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.news.app.mbg.mapper.LikesMapper">
+  <resultMap id="BaseResultMap" type="com.news.app.mbg.model.Likes">
+    <id column="like_id" jdbcType="VARCHAR" property="likeId" />
+    <result column="like_newsdm" jdbcType="VARCHAR" property="likeNewsdm" />
+    <result column="like_userdm" jdbcType="VARCHAR" property="likeUserdm" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    like_id, like_newsdm, like_userdm
+  </sql>
+  <select id="selectByExample" parameterType="com.news.app.mbg.model.LikesExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Likes
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Likes
+    where like_id = #{likeId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from Likes
+    where like_id = #{likeId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.news.app.mbg.model.LikesExample">
+    delete from Likes
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.news.app.mbg.model.Likes">
+    <selectKey keyProperty="likeId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Likes (like_newsdm, like_userdm)
+    values (#{likeNewsdm,jdbcType=VARCHAR}, #{likeUserdm,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.news.app.mbg.model.Likes">
+    <selectKey keyProperty="likeId" order="AFTER" resultType="java.lang.String">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Likes
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="likeNewsdm != null">
+        like_newsdm,
+      </if>
+      <if test="likeUserdm != null">
+        like_userdm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="likeNewsdm != null">
+        #{likeNewsdm,jdbcType=VARCHAR},
+      </if>
+      <if test="likeUserdm != null">
+        #{likeUserdm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.news.app.mbg.model.LikesExample" resultType="java.lang.Integer">
+    select count(*) from Likes
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Likes
+    <set>
+      <if test="record.likeId != null">
+        like_id = #{record.likeId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeNewsdm != null">
+        like_newsdm = #{record.likeNewsdm,jdbcType=VARCHAR},
+      </if>
+      <if test="record.likeUserdm != null">
+        like_userdm = #{record.likeUserdm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Likes
+    set like_id = #{record.likeId,jdbcType=VARCHAR},
+      like_newsdm = #{record.likeNewsdm,jdbcType=VARCHAR},
+      like_userdm = #{record.likeUserdm,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.news.app.mbg.model.Likes">
+    update Likes
+    <set>
+      <if test="likeNewsdm != null">
+        like_newsdm = #{likeNewsdm,jdbcType=VARCHAR},
+      </if>
+      <if test="likeUserdm != null">
+        like_userdm = #{likeUserdm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where like_id = #{likeId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.news.app.mbg.model.Likes">
+    update Likes
+    set like_newsdm = #{likeNewsdm,jdbcType=VARCHAR},
+      like_userdm = #{likeUserdm,jdbcType=VARCHAR}
+    where like_id = #{likeId,jdbcType=VARCHAR}
+  </update>
+</mapper>

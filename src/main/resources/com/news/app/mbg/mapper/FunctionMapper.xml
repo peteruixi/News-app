@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.news.app.mbg.mapper.FunctionMapper">
+  <resultMap id="BaseResultMap" type="com.news.app.mbg.model.Function">
+    <id column="function_id" jdbcType="INTEGER" property="functionId" />
+    <result column="function_name" jdbcType="VARCHAR" property="functionName" />
+    <result column="function_uri" jdbcType="VARCHAR" property="functionUri" />
+    <result column="function_desc" jdbcType="VARCHAR" property="functionDesc" />
+    <result column="function_mod_date" jdbcType="TIMESTAMP" property="functionModDate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    function_id, function_name, function_uri, function_desc, function_mod_date, status
+  </sql>
+  <select id="selectByExample" parameterType="com.news.app.mbg.model.FunctionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from Function
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from Function
+    where function_id = #{functionId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from Function
+    where function_id = #{functionId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.news.app.mbg.model.FunctionExample">
+    delete from Function
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.news.app.mbg.model.Function">
+    <selectKey keyProperty="functionId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Function (function_name, function_uri, function_desc, 
+      function_mod_date, status)
+    values (#{functionName,jdbcType=VARCHAR}, #{functionUri,jdbcType=VARCHAR}, #{functionDesc,jdbcType=VARCHAR}, 
+      #{functionModDate,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.news.app.mbg.model.Function">
+    <selectKey keyProperty="functionId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into Function
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="functionName != null">
+        function_name,
+      </if>
+      <if test="functionUri != null">
+        function_uri,
+      </if>
+      <if test="functionDesc != null">
+        function_desc,
+      </if>
+      <if test="functionModDate != null">
+        function_mod_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="functionName != null">
+        #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="functionUri != null">
+        #{functionUri,jdbcType=VARCHAR},
+      </if>
+      <if test="functionDesc != null">
+        #{functionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="functionModDate != null">
+        #{functionModDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.news.app.mbg.model.FunctionExample" resultType="java.lang.Integer">
+    select count(*) from Function
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update Function
+    <set>
+      <if test="record.functionId != null">
+        function_id = #{record.functionId,jdbcType=INTEGER},
+      </if>
+      <if test="record.functionName != null">
+        function_name = #{record.functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionUri != null">
+        function_uri = #{record.functionUri,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionDesc != null">
+        function_desc = #{record.functionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.functionModDate != null">
+        function_mod_date = #{record.functionModDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update Function
+    set function_id = #{record.functionId,jdbcType=INTEGER},
+      function_name = #{record.functionName,jdbcType=VARCHAR},
+      function_uri = #{record.functionUri,jdbcType=VARCHAR},
+      function_desc = #{record.functionDesc,jdbcType=VARCHAR},
+      function_mod_date = #{record.functionModDate,jdbcType=TIMESTAMP},
+      status = #{record.status,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.news.app.mbg.model.Function">
+    update Function
+    <set>
+      <if test="functionName != null">
+        function_name = #{functionName,jdbcType=VARCHAR},
+      </if>
+      <if test="functionUri != null">
+        function_uri = #{functionUri,jdbcType=VARCHAR},
+      </if>
+      <if test="functionDesc != null">
+        function_desc = #{functionDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="functionModDate != null">
+        function_mod_date = #{functionModDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where function_id = #{functionId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.news.app.mbg.model.Function">
+    update Function
+    set function_name = #{functionName,jdbcType=VARCHAR},
+      function_uri = #{functionUri,jdbcType=VARCHAR},
+      function_desc = #{functionDesc,jdbcType=VARCHAR},
+      function_mod_date = #{functionModDate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where function_id = #{functionId,jdbcType=INTEGER}
+  </update>
+</mapper>
