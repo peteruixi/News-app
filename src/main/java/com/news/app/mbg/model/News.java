@@ -26,6 +26,9 @@ public class News implements Serializable {
     @ApiModelProperty(value = "新闻所属栏目ID")
     private Integer newsColumndm;
 
+    @ApiModelProperty(value = "新闻点赞数")
+    private Integer likes;
+
     @ApiModelProperty(value = "新闻详细信息")
     private String newsDetails;
 
@@ -87,6 +90,14 @@ public class News implements Serializable {
         this.newsColumndm = newsColumndm;
     }
 
+    public Integer getLikes() {
+        return likes;
+    }
+
+    public void setLikes(Integer likes) {
+        this.likes = likes;
+    }
+
     public String getNewsDetails() {
         return newsDetails;
     }
@@ -108,6 +119,7 @@ public class News implements Serializable {
         sb.append(", newsRead=").append(newsRead);
         sb.append(", newsUpdateDate=").append(newsUpdateDate);
         sb.append(", newsColumndm=").append(newsColumndm);
+        sb.append(", likes=").append(likes);
         sb.append(", newsDetails=").append(newsDetails);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");

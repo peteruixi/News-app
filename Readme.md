@@ -1,14 +1,24 @@
-#### News app (edited Jun/1st/2020)
+#### News-app: a rudimentary news feed web-app (edited Jun/2nd/2020)
 
 ---
 
-##### Overview
+> All features are subject to update 
 
-News app is a tiny sample spring-boot project targeting towards services in news feed web application. It is my attempt to understand and learn java spring-boot and web application development. In order to build this program, I took reference to the open-source project [mall](https://github.com/macrozheng/mall-learning) and it's very informative tutorial built by macroZhang. Hence, News app's structure was modeled after the the 'mall' project.
+##### **Overview**
 
-Enviroment: macOS Catalina ver.10.15.1
+News app is a tiny sample spring-boot project targeting towards services in news feed web application. Featuring basic operation in administrative services like privilage designation and user services like pulling up news articles and hitting likes.
+
+   It is my attempt to understand and learn java spring-boot and web application development. In order to build this program, I took reference to the very educational open-source project [mall](https://github.com/macrozheng/mall-learning) by macroZhang. Hence, the package dependency and source code layout is fairly similar. 
+
+**Enviroment**: 
+
+OS: macOS Catalina ver.10.15.1
 
 Java Version: 1.8.0_251
+
+Development Ide: IDEA Intelij
+
+Database Tool: IDEA DataGrip, Navicat
 
 | Tools            | Version | Description                |
 | ---------------- | ------- | -------------------------- |
@@ -23,7 +33,8 @@ Java Version: 1.8.0_251
 | MongoDb          | 4.2.6   | NoSql Database             |
 | Druid            | 1.1.10  | DB Connector Pool          |
 | JWT              | 0.9.0   | Encryption                 |
-| MySql            | 5.7.29  | SQL Database               |
+| [MySql](MySql)   | 5.7.29  | SQL Database               |
 
 
 
+###### [Enviroment]()

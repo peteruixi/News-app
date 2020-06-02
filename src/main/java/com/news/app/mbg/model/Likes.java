@@ -4,8 +4,8 @@ import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class Likes implements Serializable {
-    @ApiModelProperty(value = "点赞id")
-    private String likeId;
+    @ApiModelProperty(value = "点赞记录id")
+    private Integer likeId;
 
     @ApiModelProperty(value = "点赞新闻")
     private String likeNewsdm;
@@ -15,11 +15,11 @@ public class Likes implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public String getLikeId() {
+    public Integer getLikeId() {
         return likeId;
     }
 
-    public void setLikeId(String likeId) {
+    public void setLikeId(Integer likeId) {
         this.likeId = likeId;
     }
 

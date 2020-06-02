@@ -9,6 +9,7 @@
     <result column="news_read" jdbcType="INTEGER" property="newsRead" />
     <result column="news_update_date" jdbcType="TIMESTAMP" property="newsUpdateDate" />
     <result column="news_columndm" jdbcType="INTEGER" property="newsColumndm" />
+    <result column="likes" jdbcType="INTEGER" property="likes" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.news.app.mbg.model.News">
     <result column="news_details" jdbcType="LONGVARCHAR" property="newsDetails" />
@@ -72,7 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    news_id, news_title, news_userdm, news_pub_date, news_read, news_update_date, news_columndm
+    news_id, news_title, news_userdm, news_pub_date, news_read, news_update_date, news_columndm, 
+    likes
   </sql>
   <sql id="Blob_Column_List">
     news_details
@@ -131,10 +133,10 @@
     </selectKey>
     insert into News (news_title, news_userdm, news_pub_date, 
       news_read, news_update_date, news_columndm, 
-      news_details)
+      likes, news_details)
     values (#{newsTitle,jdbcType=VARCHAR}, #{newsUserdm,jdbcType=VARCHAR}, #{newsPubDate,jdbcType=TIMESTAMP}, 
       #{newsRead,jdbcType=INTEGER}, #{newsUpdateDate,jdbcType=TIMESTAMP}, #{newsColumndm,jdbcType=INTEGER}, 
-      #{newsDetails,jdbcType=LONGVARCHAR})
+      #{likes,jdbcType=INTEGER}, #{newsDetails,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.news.app.mbg.model.News">
     <selectKey keyProperty="newsId" order="AFTER" resultType="java.lang.Integer">
@@ -160,6 +162,9 @@
       <if test="newsColumndm != null">
         news_columndm,
       </if>
+      <if test="likes != null">
+        likes,
+      </if>
       <if test="newsDetails != null">
         news_details,
       </if>
@@ -182,6 +187,9 @@
       </if>
       <if test="newsColumndm != null">
         #{newsColumndm,jdbcType=INTEGER},
+      </if>
+      <if test="likes != null">
+        #{likes,jdbcType=INTEGER},
       </if>
       <if test="newsDetails != null">
         #{newsDetails,jdbcType=LONGVARCHAR},
@@ -218,6 +226,9 @@
       <if test="record.newsColumndm != null">
         news_columndm = #{record.newsColumndm,jdbcType=INTEGER},
       </if>
+      <if test="record.likes != null">
+        likes = #{record.likes,jdbcType=INTEGER},
+      </if>
       <if test="record.newsDetails != null">
         news_details = #{record.newsDetails,jdbcType=LONGVARCHAR},
       </if>
@@ -235,6 +246,7 @@
       news_read = #{record.newsRead,jdbcType=INTEGER},
       news_update_date = #{record.newsUpdateDate,jdbcType=TIMESTAMP},
       news_columndm = #{record.newsColumndm,jdbcType=INTEGER},
+      likes = #{record.likes,jdbcType=INTEGER},
       news_details = #{record.newsDetails,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -248,7 +260,8 @@
       news_pub_date = #{record.newsPubDate,jdbcType=TIMESTAMP},
       news_read = #{record.newsRead,jdbcType=INTEGER},
       news_update_date = #{record.newsUpdateDate,jdbcType=TIMESTAMP},
-      news_columndm = #{record.newsColumndm,jdbcType=INTEGER}
+      news_columndm = #{record.newsColumndm,jdbcType=INTEGER},
+      likes = #{record.likes,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -274,6 +287,9 @@
       <if test="newsColumndm != null">
         news_columndm = #{newsColumndm,jdbcType=INTEGER},
       </if>
+      <if test="likes != null">
+        likes = #{likes,jdbcType=INTEGER},
+      </if>
       <if test="newsDetails != null">
         news_details = #{newsDetails,jdbcType=LONGVARCHAR},
       </if>
@@ -288,6 +304,7 @@
       news_read = #{newsRead,jdbcType=INTEGER},
       news_update_date = #{newsUpdateDate,jdbcType=TIMESTAMP},
       news_columndm = #{newsColumndm,jdbcType=INTEGER},
+      likes = #{likes,jdbcType=INTEGER},
       news_details = #{newsDetails,jdbcType=LONGVARCHAR}
     where news_id = #{newsId,jdbcType=INTEGER}
   </update>
@@ -298,7 +315,8 @@
       news_pub_date = #{newsPubDate,jdbcType=TIMESTAMP},
       news_read = #{newsRead,jdbcType=INTEGER},
       news_update_date = #{newsUpdateDate,jdbcType=TIMESTAMP},
-      news_columndm = #{newsColumndm,jdbcType=INTEGER}
+      news_columndm = #{newsColumndm,jdbcType=INTEGER},
+      likes = #{likes,jdbcType=INTEGER}
     where news_id = #{newsId,jdbcType=INTEGER}
   </update>
 </mapper>

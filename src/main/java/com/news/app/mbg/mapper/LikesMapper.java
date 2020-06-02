@@ -10,7 +10,7 @@ public interface LikesMapper {
 
     int deleteByExample(LikesExample example);
 
-    int deleteByPrimaryKey(String likeId);
+    int deleteByPrimaryKey(Integer likeId);
 
     int insert(Likes record);
 
@@ -18,7 +18,7 @@ public interface LikesMapper {
 
     List<Likes> selectByExample(LikesExample example);
 
-    Likes selectByPrimaryKey(String likeId);
+    Likes selectByPrimaryKey(Integer likeId);
 
     int updateByExampleSelective(@Param("record") Likes record, @Param("example") LikesExample example);
 

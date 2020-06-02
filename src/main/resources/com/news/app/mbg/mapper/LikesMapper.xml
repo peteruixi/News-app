@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.news.app.mbg.mapper.LikesMapper">
   <resultMap id="BaseResultMap" type="com.news.app.mbg.model.Likes">
-    <id column="like_id" jdbcType="VARCHAR" property="likeId" />
+    <id column="like_id" jdbcType="INTEGER" property="likeId" />
     <result column="like_newsdm" jdbcType="VARCHAR" property="likeNewsdm" />
     <result column="like_userdm" jdbcType="VARCHAR" property="likeUserdm" />
   </resultMap>
@@ -81,15 +81,15 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from Likes
-    where like_id = #{likeId,jdbcType=VARCHAR}
+    where like_id = #{likeId,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from Likes
-    where like_id = #{likeId,jdbcType=VARCHAR}
+    where like_id = #{likeId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.news.app.mbg.model.LikesExample">
     delete from Likes
@@ -98,14 +98,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.news.app.mbg.model.Likes">
-    <selectKey keyProperty="likeId" order="AFTER" resultType="java.lang.String">
+    <selectKey keyProperty="likeId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into Likes (like_newsdm, like_userdm)
     values (#{likeNewsdm,jdbcType=VARCHAR}, #{likeUserdm,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.news.app.mbg.model.Likes">
-    <selectKey keyProperty="likeId" order="AFTER" resultType="java.lang.String">
+    <selectKey keyProperty="likeId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into Likes
@@ -136,7 +136,7 @@
     update Likes
     <set>
       <if test="record.likeId != null">
-        like_id = #{record.likeId,jdbcType=VARCHAR},
+        like_id = #{record.likeId,jdbcType=INTEGER},
       </if>
       <if test="record.likeNewsdm != null">
         like_newsdm = #{record.likeNewsdm,jdbcType=VARCHAR},
@@ -151,7 +151,7 @@
   </update>
   <update id="updateByExample" parameterType="map">
     update Likes
-    set like_id = #{record.likeId,jdbcType=VARCHAR},
+    set like_id = #{record.likeId,jdbcType=INTEGER},
       like_newsdm = #{record.likeNewsdm,jdbcType=VARCHAR},
       like_userdm = #{record.likeUserdm,jdbcType=VARCHAR}
     <if test="_parameter != null">
@@ -168,12 +168,12 @@
         like_userdm = #{likeUserdm,jdbcType=VARCHAR},
       </if>
     </set>
-    where like_id = #{likeId,jdbcType=VARCHAR}
+    where like_id = #{likeId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.news.app.mbg.model.Likes">
     update Likes
     set like_newsdm = #{likeNewsdm,jdbcType=VARCHAR},
       like_userdm = #{likeUserdm,jdbcType=VARCHAR}
-    where like_id = #{likeId,jdbcType=VARCHAR}
+    where like_id = #{likeId,jdbcType=INTEGER}
   </update>
 </mapper>

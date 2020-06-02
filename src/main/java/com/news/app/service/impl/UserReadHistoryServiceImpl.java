@@ -4,6 +4,10 @@ import com.news.app.nosql.mongodb.document.UserReadHistory;
 import com.news.app.nosql.mongodb.repository.UserReadHistoryRepository;
 import com.news.app.service.UserReadHistoryService;
 
+import com.news.app.mbg.model.News;
+import com.news.app.mbg.mapper.NewsMapper;
+import com.news.app.mbg.model.NewsExample;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,11 +24,24 @@ public class UserReadHistoryServiceImpl implements UserReadHistoryService{
      */
     @Autowired
     private UserReadHistoryRepository userReadHistoryRepository;
+    @Autowired
+    private NewsMapper newsMapper;
+
     @Override
     public int create(UserReadHistory userReadHistory){
+        //Update news read value in mysql database
+        int news_id;
+        news_id = userReadHistory.getNewsId().intValue();
+        News tmp = newsMapper.selectByPrimaryKey(news_id);
+        tmp.setNewsRead(tmp.getNewsRead()+1);
+        newsMapper.updateByPrimaryKey(tmp);
+
+
         userReadHistory.setId(null);
         userReadHistory.setCreateTime(new Date());
         userReadHistoryRepository.save(userReadHistory);
+
+
         return 1;
     }
 

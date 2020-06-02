@@ -114,62 +114,52 @@ public class LikesExample {
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdEqualTo(String value) {
+        public Criteria andLikeIdEqualTo(Integer value) {
             addCriterion("like_id =", value, "likeId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdNotEqualTo(String value) {
+        public Criteria andLikeIdNotEqualTo(Integer value) {
             addCriterion("like_id <>", value, "likeId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdGreaterThan(String value) {
+        public Criteria andLikeIdGreaterThan(Integer value) {
             addCriterion("like_id >", value, "likeId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdGreaterThanOrEqualTo(String value) {
+        public Criteria andLikeIdGreaterThanOrEqualTo(Integer value) {
             addCriterion("like_id >=", value, "likeId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdLessThan(String value) {
+        public Criteria andLikeIdLessThan(Integer value) {
             addCriterion("like_id <", value, "likeId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdLessThanOrEqualTo(String value) {
+        public Criteria andLikeIdLessThanOrEqualTo(Integer value) {
             addCriterion("like_id <=", value, "likeId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdLike(String value) {
-            addCriterion("like_id like", value, "likeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andLikeIdNotLike(String value) {
-            addCriterion("like_id not like", value, "likeId");
-            return (Criteria) this;
-        }
-
-        public Criteria andLikeIdIn(List<String> values) {
+        public Criteria andLikeIdIn(List<Integer> values) {
             addCriterion("like_id in", values, "likeId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdNotIn(List<String> values) {
+        public Criteria andLikeIdNotIn(List<Integer> values) {
             addCriterion("like_id not in", values, "likeId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdBetween(String value1, String value2) {
+        public Criteria andLikeIdBetween(Integer value1, Integer value2) {
             addCriterion("like_id between", value1, value2, "likeId");
             return (Criteria) this;
         }
 
-        public Criteria andLikeIdNotBetween(String value1, String value2) {
+        public Criteria andLikeIdNotBetween(Integer value1, Integer value2) {
             addCriterion("like_id not between", value1, value2, "likeId");
             return (Criteria) this;
         }

@@ -6,7 +6,7 @@ import java.io.Serializable;
 public class Adminrole implements Serializable {
     private Integer id;
 
-    @ApiModelProperty(value = "管理员id ")
+    @ApiModelProperty(value = "管理员id")
     private Integer adminId;
 
     @ApiModelProperty(value = "角色id")
