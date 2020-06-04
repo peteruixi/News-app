@@ -67,13 +67,43 @@ public class AdminController {
         return CommonResult.success(tokenMap);
     }
 
-    @ApiOperation("获取用户所有权限（包括+-权限）")
+    @ApiOperation("获取管理员所有权限（包括+-权限）")
     @RequestMapping(value = "/permit/{adminId}", method = RequestMethod.GET)
     @ResponseBody
     public CommonResult<List<Function>> getPermitList(@PathVariable String adminId) {
         List<Function> permitList = adminService.getPermitList(adminId);
         return CommonResult.success(permitList);
     }
+
+    @ApiOperation("添加管理员角色")
+    @RequestMapping(value = "/role/grant/{adminId}",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult grantRole(@PathVariable String adminId, @RequestParam int roleId){
+        int count = adminService.grantRole(adminId, roleId);
+        if (count == 1){
+            LOGGER.debug("grant role success :id={}", adminId);
+            return CommonResult.success(null);
+        } else {
+            LOGGER.debug("grant role failed :id={}", adminId);
+            return CommonResult.failed("操作失败");
+        }
+    }
+
+    @ApiOperation("移除管理员角色")
+    @RequestMapping(value = "/role/dismiss/{adminId}",method = RequestMethod.POST)
+    @ResponseBody
+    public CommonResult dismissRole(@PathVariable String adminId, @RequestParam int roleId){
+        int count = adminService.dismissRole(adminId, roleId);
+        if (count == 1){
+            LOGGER.debug("dismiss role success :id={}", adminId);
+            return CommonResult.success(null);
+        } else {
+            LOGGER.debug("dismiss role failed :id={}", adminId);
+            return CommonResult.failed("操作失败");
+        }
+
+    }
+
 
 }
 

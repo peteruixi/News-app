@@ -63,6 +63,7 @@ public class NewsController {
     @ApiOperation("更新指定id新闻信息")
     @RequestMapping(value = "/update/{news_id}", method = RequestMethod.POST)
     @ResponseBody
+    @PreAuthorize("hasAuthority('news:update')")
     public CommonResult updateArticle(@PathVariable("news_id") int id, @RequestBody News newsdto, BindingResult result) {
         CommonResult commonResult;
         int count = demoService.updateArticle(id, newsdto);
@@ -79,6 +80,7 @@ public class NewsController {
     @ApiOperation("删除指定id的新闻")
     @RequestMapping(value = "/delete/{news_id}", method = RequestMethod.GET)
     @ResponseBody
+    @PreAuthorize("hasAuthority('news:delete')")
     public CommonResult deleteArticle(@PathVariable("news_id") int id) {
         int count = demoService.deleteArticle(id);
         if (count == 1) {

@@ -6,6 +6,10 @@ import com.news.app.mbg.mapper.UserMapper;
 import com.news.app.mbg.model.User;
 import com.news.app.mbg.model.UserExample;
 
+import com.news.app.mbg.model.Userrole;
+import com.news.app.mbg.model.UserroleExample;
+import com.news.app.mbg.mapper.UserroleMapper;
+
 import com.news.app.mbg.model.Userinfo;
 import com.news.app.mbg.mapper.UserinfoMapper;
 import com.news.app.mbg.model.UserinfoExample;
@@ -40,6 +44,8 @@ public class UserServiceImpl implements UserService {
     private UserMapper userMapper;
     @Autowired
     private UserinfoMapper userinfoMapper;
+    @Autowired
+    private UserroleMapper uroleMapper;
 
 
     @Override
@@ -74,18 +80,23 @@ public class UserServiceImpl implements UserService {
     @Override
     public int registerUser(User user){
 
+        //按照已有用户数量设置id
         UserExample userExample = new UserExample();
         userExample.createCriteria().andUserIdIsNotNull();
         int count = userMapper.countByExample(userExample);
-        //LOGGER.info(String.valueOf(count+=1));
         user.setUserId(count+=1);
 
-        //user.setUserId(String.valueOf(count+=1));
+        //按照已有用户详情数量设置设置用户详情id
         Userinfo userinfo = new Userinfo();
         UserinfoExample userinfoExample = new UserinfoExample();
         userinfoExample.createCriteria().andUserinfoIdIsNotNull();
         String info_count = String.valueOf((userinfoMapper.countByExample(userinfoExample))+1);
         user.setUserInfodm(info_count);
+
+        Userrole userrole = new Userrole();
+        userrole.setUserId(count);
+        userrole.setRoleId(4);
+        uroleMapper.insert(userrole);
 
         userinfo.setUseridDm(String.valueOf(user.getUserId()));
         userinfoMapper.insert(userinfo);

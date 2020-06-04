@@ -37,4 +37,5 @@ Database Tool: IDEA DataGrip, Navicat
 
 
 
-###### [Enviroment]()
+###### [Enviroment]([https://github.com/peteruixi/News-app/blob/master/docs/1.Database%20Design%20%26%20Basic%20Setup.md](https://github.com/peteruixi/News-app/blob/master/docs/1.Database Design %26 Basic Setup.md))
+

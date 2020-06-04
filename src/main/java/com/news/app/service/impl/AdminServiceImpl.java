@@ -11,6 +11,10 @@ import com.news.app.mbg.model.Permit;
 import com.news.app.mbg.model.Function;
 import com.news.app.service.AdminService;
 
+import com.news.app.mbg.model.Adminrole;
+import com.news.app.mbg.model.AdminroleExample;
+import com.news.app.mbg.mapper.AdminroleMapper;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -48,7 +52,8 @@ public class AdminServiceImpl implements AdminService {
     @Autowired
     private AdminRoleRelationDao adminRoleRelationDao;
 
-
+    @Autowired
+    private AdminroleMapper adminroleMapper;
 
     /**
      * 根据用户名获取后台管理员
@@ -127,6 +132,28 @@ public class AdminServiceImpl implements AdminService {
      */
     public List<Function> getPermitList(String adminId){
         return adminRoleRelationDao.getFunctionList(adminId);
+    }
+
+    /**
+     * 给管理员添加权限
+     * @param adminId
+     * @param roleId
+     * @return
+     */
+    public int grantRole(String adminId, int roleId){
+        //AdminroleExample adminroleExample = new AdminroleExample();
+        //adminroleExample.createCriteria().andAdminIdEqualTo(Integer.valueOf(adminId));
+        //adminroleMapper.selectByExample(adminroleExample);
+        Adminrole adminrole = new Adminrole();
+        adminrole.setAdminId(Integer.valueOf(adminId));
+        adminrole.setRoleId(roleId);
+        return adminroleMapper.insert(adminrole);
+    }
+
+    public int dismissRole(String adminId, int roleId){
+        AdminroleExample adminroleExample = new AdminroleExample();
+        adminroleExample.createCriteria().andAdminIdEqualTo(Integer.valueOf(adminId)).andRoleIdEqualTo(roleId);
+        return adminroleMapper.deleteByExample(adminroleExample);
     }
 }
 

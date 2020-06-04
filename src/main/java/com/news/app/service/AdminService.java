@@ -34,4 +34,14 @@ public interface AdminService {
      * 获取用户所有权限（包括角色权限和+-权限）
      */
     List<Function> getPermitList(String adminId);
+
+    /**
+     * 给管理员添加角色
+     */
+    int grantRole(String adminId, int roleId);
+
+    /**
+     * 给管理员增加角色
+     */
+    int dismissRole(String adminID, int roleID);
 }
