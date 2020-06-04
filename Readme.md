@@ -35,7 +35,7 @@ Database Tool: IDEA DataGrip, Navicat
 | JWT              | 0.9.0   | Encryption                 |
 | [MySql](MySql)   | 5.7.29  | SQL Database               |
 
+---
 
-
-###### [Enviroment]([https://github.com/peteruixi/News-app/blob/master/docs/1.Database%20Design%20%26%20Basic%20Setup.md](https://github.com/peteruixi/News-app/blob/master/docs/1.Database Design %26 Basic Setup.md))
+###### [Enviroment]([https://github.com/peteruixi/News-app/blob/master/docs/1.Database%20Design%20%26%20Basic%20Setup.md](https://github.com/peteruixi/News-app/blob/master/docs/1.Database%20Design%20%26%20Basic%20Setup.md))
 
